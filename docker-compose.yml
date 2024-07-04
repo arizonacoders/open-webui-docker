@@ -5,11 +5,8 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
     restart: unless-stopped
-    environment:
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
-      - OPENAI_API_BASE_URLS=${OPENAI_API_BASE_URLS}
-      - OPENAI_API_KEYS=${OPENAI_API_KEYS}
-      - DEFAULT_MODELS=${DEFAULT_MODELS}
+    env_file:
+      - .env
     volumes:
       - open-webui:/app/backend/data
     networks:
