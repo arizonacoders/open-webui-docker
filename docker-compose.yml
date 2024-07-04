@@ -13,17 +13,33 @@ services:
     volumes:
       - open-webui:/app/backend/data
     networks:
+      - private_network
       - proxy
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
       - "traefik.http.routers.open-webui.rule=Host(`${OPEN_WEBUI_DOMAIN}`)"
       - "traefik.http.routers.open-webui.entrypoints=websecure"
       - "traefik.http.routers.open-webui.service=open-webui"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
 
+  searxng:
+    image: searxng/searxng:${SEARXNG_VERSION:-latest}
+    container_name: searxng
+    volumes:
+      - ./searxng:/etc/searxng
+    restart: always
+    networks:
+      - private_network
+    labels:
+      - "traefik.enable=false"
+
 networks:
   proxy:
     external: true
+  private_network:
+    driver: bridge
 
 volumes:
   open-webui:
+  searxng:
