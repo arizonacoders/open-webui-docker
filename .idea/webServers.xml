@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b6e701d1-cbe5-4400-a84c-0bd65132c8db" name="Digital Ocean" url="https://ow.basketwhisperer.com/">
+        <fileTransfer rootFolder="/home/ubuntu/docker/open-webui" accessType="SFTP" host="157.230.175.66" port="22" sshConfigId="372def8f-da44-4e35-9ffb-7ae01006155a" sshConfig="root@157.230.175.66:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -31,6 +31,19 @@ services:
     labels:
       - "traefik.enable=false"
 
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    container_name: pipelines
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - pipelines:/app/pipelines
+    networks:
+      - private_network
+    labels:
+      - "traefik.enable=false"
+
 networks:
   proxy:
     external: true
@@ -39,4 +52,5 @@ networks:
 
 volumes:
   open-webui:
-  searxng:
+  pipelines:
+
