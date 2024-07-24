@@ -1,1 +1,2 @@
-docker-compose down
+echo "Stopping docker"
+docker compose down

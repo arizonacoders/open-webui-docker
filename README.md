@@ -32,7 +32,7 @@ cp .env.example .env
 ### 3. Launch Open Web-UI
 To start the Open Web-UI using Docker Compose, run:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 This command will set up and launch the Open Web-UI, using the configurations specified in your `.env` file.
