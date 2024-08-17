@@ -1,0 +1,40 @@
+services:
+  open-webui:
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.open-webui.rule=Host(`${OPEN_WEBUI_DOMAIN}`)"
+      - "traefik.http.routers.open-webui.entrypoints=websecure"
+      - "traefik.http.routers.open-webui.service=open-webui"
+      - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
+
+  searxng:
+    labels:
+      - "traefik.enable=false"
+
+  pipelines:
+    labels:
+      - "traefik.enable=false"
+
+  langfuse:
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.langfuse.rule=Host(`${LANGFUSE_DOMAIN}`)"
+      - "traefik.http.routers.langfuse.entrypoints=websecure"
+      - "traefik.http.routers.langfuse.service=langfuse"
+      - "traefik.http.services.langfuse.loadbalancer.server.port=3000"
+
+  db:
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  proxy:
+    external: true
+
+

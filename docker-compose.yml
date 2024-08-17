@@ -9,14 +9,6 @@ services:
       - open-webui:/app/backend/data
     networks:
       - private_network
-      - proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=proxy"
-      - "traefik.http.routers.open-webui.rule=Host(`${OPEN_WEBUI_DOMAIN}`)"
-      - "traefik.http.routers.open-webui.entrypoints=websecure"
-      - "traefik.http.routers.open-webui.service=open-webui"
-      - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
 
   searxng:
     image: searxng/searxng:${SEARXNG_VERSION:-latest}
@@ -26,8 +18,6 @@ services:
     restart: always
     networks:
       - private_network
-    labels:
-      - "traefik.enable=false"
 
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
@@ -39,8 +29,6 @@ services:
       - pipelines:/app/pipelines
     networks:
       - private_network
-    labels:
-      - "traefik.enable=false"
 
   langfuse:
     image: langfuse/langfuse:2
@@ -61,14 +49,6 @@ services:
       - LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES=${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
     networks:
       - private_network
-      - proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=proxy"
-      - "traefik.http.routers.langfuse.rule=Host(`${LANGFUSE_DOMAIN}`)"
-      - "traefik.http.routers.langfuse.entrypoints=websecure"
-      - "traefik.http.routers.langfuse.service=langfuse"
-      - "traefik.http.services.langfuse.loadbalancer.server.port=3000"
 
   db:
     image: postgres
@@ -86,12 +66,8 @@ services:
       - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - private_network
-    labels:
-      - "traefik.enable=false"
 
 networks:
-  proxy:
-    external: true
   private_network:
     driver: bridge
 
@@ -99,4 +75,3 @@ volumes:
   open-webui:
   pipelines:
   database-data:
-
